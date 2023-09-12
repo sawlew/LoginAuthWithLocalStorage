@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(126, 126, 243);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form{
+            width: 500px;
+            background-color: white;
+            border: 1px solid grey;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <form id="signin">
+        <h1>Sign Up</h1>
+        <br>
+        <input type="email" placeholder="Email" required id="signUpMail"><br><br>
+        <input type="password" placeholder="Password" id="signUpPass" required><br><br>
+        <button onclick="signUp(event)">Signup</button><br>
+    </form>
+
+    <form id="login" style="display: none;">
+        <h1>Login</h1>
+        <br>
+        <div id="error"></div>
+        <input type="email" placeholder="Email" required id="loginMail"><br><br>
+        <input type="password" placeholder="Password" required id="loginPass"><br><br>
+        <button onclick="logIn(event)">Login</button><br>
+    </form>
+
+    <script>
+        let signIn = document.getElementById("signin");
+        let login = document.getElementById("login");
+
+        let errorMessage = document.getElementById("error");
+        
+        function signUp(e){
+            e.preventDefault();
+            let signUpMail = document.getElementById("signUpMail").value;
+            let signUpPass = document.getElementById("signUpPass").value;
+            
+            localStorage.setItem("username", signUpMail);
+            localStorage.setItem("password", signUpPass);
+            login.style.display = "flex";
+            signIn.style.display = "none";
+        }
+
+        function logIn(e){
+            e.preventDefault();
+            let username = localStorage.getItem("username");
+            let password = localStorage.getItem("password");
+            let loginMail = document.getElementById("loginMail").value;
+            let loginPass = document.getElementById("loginPass").value;
+            
+            if ((loginMail === username) && (loginPass === password)){
+                errorMessage.innerHTML = `<span style="color: green;">Welcome</span>`;
+            }else{
+                errorMessage.innerHTML = `<span style="color: red;">Login credentials not found</span>`;
+            }
+
+        }
+        
+    </script>
+</body>
+</html>
